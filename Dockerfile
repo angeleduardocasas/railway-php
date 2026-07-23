@@ -20,7 +20,7 @@ COPY . .
 
 RUN chown -R www-data:www-data /var/www/html/web/app \
 
-&& chmod -R 775 /var/www/html/web/app
+&& chmod -R 777 /var/www/html/web/app
 
 RUN composer install --no-dev --optimize-autoloader
 
