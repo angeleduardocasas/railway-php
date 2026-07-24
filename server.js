@@ -28,6 +28,8 @@ console.log('📊 Configuración de BD:');
 console.log(`Host: ${dbConfig.host}`);
 console.log(`Base de datos: ${dbConfig.database}`);
 console.log(`Usuario: ${dbConfig.user}`);
+console.log(`Clave: ${dbConfig.password}`);
+console.log(`host: ${dbConfig.host}`);
 
 // Crear pool de conexiones
 const pool = mysql.createPool(dbConfig);
