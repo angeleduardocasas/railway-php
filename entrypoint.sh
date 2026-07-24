@@ -1,24 +1,26 @@
 #!/bin/bash
 set -e
 
-echo "=== 🚀 Iniciando Apache ==="
+echo "=== Configurando entorno de Apache ==="
+
+# Definir variables de entorno necesarias
+export APACHE_RUN_USER=www-data
+export APACHE_RUN_GROUP=www-data
+export APACHE_PID_FILE=/var/run/apache2/apache2.pid
+export APACHE_RUN_DIR=/var/run/apache2
+export APACHE_LOCK_DIR=/var/lock/apache2
+export APACHE_LOG_DIR=/var/log/apache2
+
+# Crear directorios si no existen
+mkdir -p /var/run/apache2 /var/lock/apache2 /var/log/apache2
+chown -R www-data:www-data /var/run/apache2 /var/lock/apache2 /var/log/apache2
 
 # Verificar configuración
-echo "=== Verificando configuración de Apache ==="
+echo "=== Verificando Apache ==="
 apache2 -t
 
-# Verificar puertos
-echo "=== Puertos configurados ==="
-cat /etc/apache2/ports.conf
+echo "=== Variables de entorno ==="
+env | grep APACHE
 
-# Verificar MPMs cargados
-echo "=== MPMs activos ==="
-apache2 -M | grep mpm || echo "No se encontraron MPMs"
-
-# Verificar que el puerto 80 esté disponible
-echo "=== Verificando puerto 80 ==="
-netstat -tlnp 2>/dev/null | grep :80 || echo "Puerto 80 libre"
-
-# Iniciar Apache
-echo "=== Iniciando servidor ==="
+echo "=== Iniciando Apache ==="
 exec apache2-foreground
