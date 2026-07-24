@@ -1,20 +1,21 @@
 FROM node:18-alpine
 
-# Crear directorio de trabajo
 WORKDIR /app
 
-# Instalar dependencias
+# Copiar archivos de dependencias
 COPY package*.json ./
-RUN npm ci --only=production
 
-# Copiar el código
+# Instalar dependencias
+RUN npm install --omit=dev
+
+# Copiar el código de la aplicación
 COPY . .
 
-# Crear directorio para vistas
+# Crear directorio para vistas si no existe
 RUN mkdir -p views
 
-# Exponer puerto
+# Exponer el puerto
 EXPOSE 3000
 
-# Comando de inicio
-CMD ["npm", "start"]
+# Iniciar la aplicación
+CMD ["node", "server.js"]
