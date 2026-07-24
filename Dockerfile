@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install pdo_mysql mysqli
 
+# Usar la IP del contenedor
+RUN echo "ServerName 0.0.0.0" >> /etc/apache2/apache2.conf
+
 COPY . /var/www/html/
 COPY entrypoint.sh /entrypoint.sh
 
