@@ -14,11 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configuración de la base de datos
 const dbConfig = {
-    host: process.env.MYSQLHOST || 'localhost',
+    host: process.env.MYSQLHOST || 'mysql.railway.internal',
     port: process.env.MYSQLPORT || 3306,
     database: process.env.MYSQLDATABASE || 'railway',
     user: process.env.MYSQLUSER || 'root',
-    password: process.env.MYSQLPASSWORD || '',
+    password: process.env.MYSQLPASSWORD || 'HxEoMLvMKeqgZaESZjviysfmIUNxgceF',
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
