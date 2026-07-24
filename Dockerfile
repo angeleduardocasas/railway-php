@@ -6,8 +6,15 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install pdo_mysql mysqli
 
-# Usar la IP del contenedor
-RUN echo "ServerName 0.0.0.0" >> /etc/apache2/apache2.conf
+# SOLUCIÓN AH00558: Configurar ServerName correctamente
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Asegurar puerto 80
+RUN echo "Listen 80" > /etc/apache2/ports.conf
+
+# Configurar MPMs para evitar conflictos
+RUN a2dismod mpm_event mpm_worker 2>/dev/null || true && \
+    a2enmod mpm_prefork
 
 COPY . /var/www/html/
 COPY entrypoint.sh /entrypoint.sh
